@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title> UNUS ANNUS - MEMENTO MORI</title>
+<style>
+@font-face {
+  font-family: mementomori;
+  src: url(bahnschrift.ttf);
+}
+.memento {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.count {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  font-family: mementomori;
+  font-size: 500%;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: white;
+}
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+html {
+  background-color: black;
+}
+</style>
+</head>
+<body>
+  <video autoplay muted loop id="myVideo">
+    <source src="vhs.mp4" type="video/mp4">
+  </video>
+  <div class="memento">
+    <p class="count"><span id="days"></span><span id="hours"></span><span id="mins"></span><span id="secs"></span><span id="end"></span></p>
+    <script>
+    var countDownDate = new Date("Nov 14, 2020 08:00:07 UTC").getTime();
+    // Run myfunc every second
+    var myfunc = setInterval(function() {
+
+    var now = new Date().getTime();
+    var timeleft = countDownDate - now;
+    var audio = new Audio('audio_file.mp3');
+    audio.autoplay = true;
+    audio.play();
+    // Calculating the days, hours, minutes and seconds left
+    var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+    if (hours < 10) {
+      hours = "0" + hours.toString();
+    }
+    if (minutes < 10) {
+      minutes = "0" + minutes.toString();
+    }
+    if (seconds < 10) {
+      seconds = "0" + seconds.toString();
+    }
+    // Result is output to the specific element
+    document.getElementById("days").innerHTML = "000:"
+    document.getElementById("hours").innerHTML = hours + ":"
+    document.getElementById("mins").innerHTML = minutes + ":"
+    document.getElementById("secs").innerHTML = seconds
+
+    // Display the message when countdown is over
+    if (timeleft < 0) {
+        clearInterval(myfunc);
+        document.getElementById("days").innerHTML = ""
+        document.getElementById("hours").innerHTML = ""
+        document.getElementById("mins").innerHTML = ""
+        document.getElementById("secs").innerHTML = ""
+        document.getElementById("end").innerHTML = "TIME UP!!";
+    }
+    }, 1000);
+    </script>
+  </div>
+</body>
+</html>
